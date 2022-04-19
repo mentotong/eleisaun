@@ -1,0 +1,31 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+  //from   w ww. java2  s.  c o m
+  </script>
+  <script type="text/javascript">
+     google.charts.load('current', {packages: ['corechart']});
+  </script>
+
+
+<div id="container" style="width: 100%; height: 120px;">
+</div>
+
+<script language="JavaScript">
+   function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+            ['Eleisaun', 'José Ramos-Horta', { role: 'annotation' }, { role: 'style' }, 'Francisco Guterres Lú-Olo', { role: 'annotation' }],
+            ['', {{jrh_total_votu}}, '{{ jrh_persentajen|floatformat }}%', 'color: #57AA26', {{fgl_total_votu}}, '{{ fgl_persentajen|floatformat }}%'],
+       ]);
+      var options = {
+          isStacked: 'percent',
+          // height: 100,
+          legend: {position: 'top', textStyle: { fontSize: 14, bold:true } },
+          hAxis: { textStyle: { fontSize: 14, bold:true }, minValue: 0, ticks: [.5]},
+          series: {0:{color:'#57AA26'}},
+          annotations: { textStyle: { fontSize: 16, bold: true, }}
+        };
+      var chart = new google.visualization.BarChart(document.getElementById('container'));
+      chart.draw(data, options);
+   }
+   google.charts.setOnLoadCallback(drawChart);
+
+</script>

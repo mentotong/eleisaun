@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% endblock %}
+{% block inject_css %}
+
+{% endblock %}
+
+{% block page_plugin_css %}
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="content-wrapper">
+
+
+
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Eleisaun Prezidensiál - Períodu 2022-2027</h4>
+        <form class="form-sample" hx-get="{% url 'website:dashboard' %}" hx-target="#first-election-chart" hx-push-url="true">
+          
+          <div class="row mt-4">
+
+            <div class="col-md-3">
+              <div class="form-group row">
+                <div class="col-sm-9">
+                  <select class="form-control" name="volta_dahira">
+                    <option value="7" data-select2-id="7" {% if ronda|add:0 == 7 %} selected {% endif %}>Volta Da-2</option>
+                    <option value="6" data-select2-id="6" {% if ronda|add:0 == 6 %} selected {% endif %}>Volta Da-1</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group row">
+                <div class="col-sm-9">
+                  <select class="form-control" name="fatin_vota">
+                    <option value="19" data-select2-id="19" {% if sentru_id|add:0 == 19 %} selected {% endif %}>Timor-Leste</option>
+                    <option value="20" data-select2-id="20" {% if sentru_id|add:0 == 20 %} selected {% endif %}>Nasionál</option>
+                    <option value="21" data-select2-id="21" {% if sentru_id|add:0 == 21 %} selected {% endif %}>Internasionál</option>
+                    {% for sentru in sentru_votasaun_hotu %}
+                    <option value="{{ sentru.id }}" data-select2-id="{{ sentru.id }}" {% if sentru_id|add:0 == sentru.id %} selected {% endif %}>{{ sentru.fatin_votasaun }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-dark btn-md">Submit</button>
+            </div>
+
+          </div>
+        </form>
+
+        <div class="row">
+
+
+          <div id="first-election-chart" class="col-md-12 mt-4">
+            {% include 'partials/first-election-chart.html' with jrh_total_votu=jrh_total_votu fgl_total_votu=fgl_total_votu %}
+          </div>
+
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- container-scroller -->
+{% endblock content %}
+{% block script %}
+   <!-- Custom js for this page -->
+   {% block page_custom_js %}
+    <script src="{% static 'vendors/js/dashboard.js' %}"></script>
+    <!-- <script src="{% static 'vendors/other-charts/js/google-charts.js' %}"></script> -->
+   {% endblock %}
+   <!-- End custom js for this page -->
+{% endblock %}
